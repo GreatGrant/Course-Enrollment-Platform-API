@@ -31,7 +31,14 @@ FastAPI REST API for managing users, courses, and enrollments with JWT authentic
 
 ## Setup
 
-1. Create and activate a virtual environment.
+1. Clone the repository:
+
+   ```bash
+   git clone <repository-url>
+   cd course-enrollment-platform-api
+   ```
+
+2. Create and activate a virtual environment.
 
    PowerShell (Windows):
 
