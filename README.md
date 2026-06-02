@@ -34,7 +34,7 @@ FastAPI REST API for managing users, courses, and enrollments with JWT authentic
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/GreatGrant/Course-Enrollment-Platform-API.git
    cd course-enrollment-platform-api
    ```
 
