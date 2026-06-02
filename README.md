@@ -40,44 +40,51 @@ FastAPI REST API for managing users, courses, and enrollments with JWT authentic
 
 2. Create and activate a virtual environment.
 
-   PowerShell (Windows):
-
+   **Windows (PowerShell):**
    ```powershell
    python -m venv .venv
    .\.venv\Scripts\Activate.ps1
    ```
-
-   If activation is blocked:
-
+   *If script execution is blocked on Windows:*
    ```powershell
    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
    .\.venv\Scripts\Activate.ps1
    ```
 
-2. Install dependencies:
+   **Linux / macOS:**
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
+
+3. Install dependencies:
 
    ```powershell
    python -m pip install --upgrade pip
    pip install -r requirements.txt
    ```
 
-3. Copy `.env.example` to `.env` and update the values if needed.
+4. Copy `.env.example` to `.env` and update the values if needed:
 
+   **Windows (PowerShell):**
    ```powershell
    Copy-Item .env.example .env
    ```
 
+   **Linux / macOS / Git Bash:**
+   ```bash
+   cp .env.example .env
+   ```
+
    Set a strong `SECRET_KEY` before running the app.
 
-4. Run database migrations:
-
-   ```powershell
+5. Run database migrations:
+   ```bash
    alembic upgrade head
    ```
 
-5. Start the API:
-
-   ```powershell
+6. Start the API:
+   ```bash
    uvicorn app.main:app --reload
    ```
 
