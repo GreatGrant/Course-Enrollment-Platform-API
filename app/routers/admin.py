@@ -1,0 +1,1 @@
+from app.routers.enrollments import admin_router as router
