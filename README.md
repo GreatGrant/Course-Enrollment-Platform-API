@@ -126,6 +126,49 @@ pytest
 - `DELETE /admin/courses/{course_id}/enrollments/{user_id}` – Remove a student from a course
 - `GET /admin/audit-logs?skip=0&limit=100` – View enrollment audit trail (paginated)
 
+## Deployment
+
+This application is ready to be deployed to various cloud providers.
+
+### 1. One-Click Deployment to Render (Blueprint)
+
+Render makes it easy to deploy using the provided `render.yaml` Blueprint file, which provisions a free web service and a PostgreSQL database automatically:
+
+1. Push your local repository to a remote repository on GitHub (e.g., `git push origin main`).
+2. Log in to your [Render Dashboard](https://dashboard.render.com).
+3. Click **New** -> **Blueprint**.
+4. Connect your GitHub repository.
+5. Render will automatically parse the `render.yaml` and configure:
+   - A PostgreSQL database (`course-enrollment-db`).
+   - A Web Service (`course-enrollment-api`) that automatically links to the database and runs database migrations on startup.
+6. Click **Apply** to deploy!
+
+### 2. Containerized Deployment (Docker)
+
+A `Dockerfile` and `.dockerignore` are provided in the root directory.
+
+1. Build the Docker image:
+   ```bash
+   docker build -t course-enrollment-api .
+   ```
+2. Run the container:
+   ```bash
+   docker run -p 8000:8000 --env-file .env course-enrollment-api
+   ```
+   *Note: In the container, the start command automatically runs `alembic upgrade head` before booting the FastAPI app.*
+
+### 3. Manual Deployment on Railway, Heroku, or Fly.io
+
+The application includes a `Procfile` for platforms utilizing buildpacks.
+
+- **Build Command**: `pip install -r requirements.txt`
+- **Start Command**: `alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+- **Environment Variables**:
+  - `DATABASE_URL`: Your production connection string (e.g., PostgreSQL). *Note: The application automatically handles conversion of `postgres://` links to SQLAlchemy-compatible `postgresql://` links.*
+  - `SECRET_KEY`: A strong security secret key.
+  - `ALGORITHM`: `HS256`
+  - `ACCESS_TOKEN_EXPIRE_MINUTES`: `60`
+
 ## Notes
 
 - Admin-only endpoints require a Bearer token for a user with the `admin` role.
